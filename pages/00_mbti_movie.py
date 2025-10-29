@@ -2,7 +2,7 @@ import streamlit as st
 
 st.set_page_config(page_title="MBTI Movie Matcher 🎬✨", layout="centered")
 
-HEADER = "# 🎬 MBTI Movie Matcher — 이모지 폭발 추천기 💥"
+HEADER = "# 🎬 MBTI Movie Matcher"
 SUBHEADER = "당신의 MBTI를 선택하면 감성에 딱 맞는 영화를 추천해줘요😎🍿"
 
 st.markdown(HEADER)
@@ -115,7 +115,5 @@ for title, year, tags, desc in movies:
     st.write("\n")
 
 st.write("---")
-
-st.info("원하시면 영화 포스터 추가, 외부 링크(예: 트레일러), 사용자 선호도(장르/언어/플랫폼) 필터 등을 더해줄게요 — 말만 해줘요! 💬✨")
 
 st.caption("Made with ❤️ and lots of emojis — MBTI Movie Matcher")
