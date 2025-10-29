@@ -1,14 +1,16 @@
 import streamlit as st
 
+# -------------------- 기본 설정 --------------------
 st.set_page_config(page_title="MBTI Movie Matcher 🎬✨", layout="centered")
 
 HEADER = "# 🎬 MBTI Movie Matcher"
-SUBHEADER = "당신의 MBTI를 선택하면 감성에 딱 맞는 영화를 추천해줘요😎🍿"
+SUBHEADER = "당신의 MBTI를 선택하면 감성에 딱 맞는 영화를 추천해줘요. 😎🍿"
 
 st.markdown(HEADER)
 st.markdown(SUBHEADER)
 st.write("---")
 
+# -------------------- MBTI 목록 --------------------
 mbti_list = [
     "INTJ", "INTP", "ENTJ", "ENTP",
     "INFJ", "INFP", "ENFJ", "ENFP",
@@ -16,8 +18,7 @@ mbti_list = [
     "ISTP", "ISFP", "ESTP", "ESFP",
 ]
 
-# 간단한 MBTI -> 영화 추천 데이터베이스 (각 MBTI당 3편)
-# 각 아이템: (제목, 연도, 간단한 태그 이모지, 한줄설명)
+# -------------------- MBTI별 영화 추천 DB --------------------
 MOVIE_DB = {
     "INTJ": [
         ("Inception", "2010", "🧠🔍✨", "복잡한 플롯과 전략적 사고가 즐거운 영화"),
@@ -101,19 +102,24 @@ MOVIE_DB = {
     ],
 }
 
+# -------------------- MBTI 선택 --------------------
 st.subheader("당신의 MBTI를 골라주세요 🧭")
 choice = st.selectbox("MBTI 선택", options=mbti_list, index=0)
 
 st.write("---")
 st.markdown(f"## 추천 영화 — {choice} 🎯")
 
+# -------------------- 영화 표시 및 별점 --------------------
 movies = MOVIE_DB.get(choice, [])
 
-for title, year, tags, desc in movies:
-    st.markdown(f"**{title} ({year})** {tags}")
-    st.write(desc)
-    st.write("\n")
+if movies:
+    for title, year, tags, desc in movies:
+        with st.expander(f"{title} ({year}) {tags}"):
+            st.write(desc)
+            rating = st.slider(f"⭐ {title} 별점 주기", 1, 5, 3)
+            st.write(f"당신의 평가: {'⭐' * rating} ({rating}/5)")
+else:
+    st.info("아직 이 MBTI의 영화 데이터는 준비 중이에요! 🎥✨")
 
 st.write("---")
-
 st.caption("Made with ❤️ and lots of emojis — MBTI Movie Matcher")
